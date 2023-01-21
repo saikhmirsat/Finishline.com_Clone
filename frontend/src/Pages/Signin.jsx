@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signing.css";
 import Statuslogo from "../Assets/statuslogo.svg";
 import Logo from '../image/sportszone.png'
+import { useNavigate } from "react-router-dom";
 
 export default function Signing() {
+
+  const Navigate = useNavigate()
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleLogin = () => {
+    const payload = { email, password }
+    console.log(payload)
+
+    if (email === "" || password === "") {
+      alert("Please enter all the details")
+    } else {
+      fetch("http://localhost:4500/users/login", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert(res.msg)
+          console.log(res)
+          localStorage.setItem("logintoken", res.token)
+          Navigate('/')
+        })
+        .catch((err) =>
+          alert("Wrong Credential")
+
+        )
+
+    }
+  }
   return (
     <>
       <div className="logo">
@@ -18,11 +53,13 @@ export default function Signing() {
           style={{ padding: "10px" }}
           type="email"
           placeholder="Enter Your Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="password"
           placeholder="Enter Your password"
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
@@ -36,6 +73,7 @@ export default function Signing() {
             fontSize: "17px",
             cursor: "pointer",
           }}
+          onClick={handleLogin}
         >
           SIGN IN
         </button>

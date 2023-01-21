@@ -1,10 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Register.css";
 import Logo from '../image/sportszone.png'
 import ReCAPTCHA from "react-google-recaptcha";
 import Statuslogo from "../Assets/statuslogo.svg";
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
+
+  const [firstname, setFname] = useState("")
+  const [lastname, setLname] = useState("")
+  const [dob, setDob] = useState("")
+  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("")
+  const navigate = useNavigate()
+
+  const LoginFunc = () => {
+    navigate('/signin')
+  }
+
+  const handleSubmit = () => {
+    const payload = {
+      firstname, lastname, dob, email, password
+    }
+    console.log(payload)
+
+    if (firstname === "" || lastname === "" || dob === "" || email === "" || password === "") {
+      alert("please fill the form")
+    } else {
+      fetch("http://localhost:4500/users/register", {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+      alert("Register success")
+      navigate('/signin')
+    }
+  }
+
   function onChange(value) {
     console.log("Captcha value:", value);
   }
@@ -53,27 +90,32 @@ export default function Register() {
           style={{ padding: "10px" }}
           type="text"
           placeholder="First Name"
+          onChange={(e) => setFname(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="text"
           placeholder="Last Name"
+          onChange={(e) => setLname(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           placeholder="Birth Date"
           class="textbox-n"
           type="text"
+          onChange={(e) => setDob(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="email"
           placeholder="Enter Your Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="password"
           placeholder="Enter Your password"
+          onChange={(e) => setPassword(e.target.value)}
         />
         <ReCAPTCHA
           sitekey="6LfI0_8jAAAAACqjsIREK-HmcpnjXi9UD587Q2tL"
@@ -91,6 +133,8 @@ export default function Register() {
             fontSize: "17px",
             cursor: "pointer",
           }}
+
+          onClick={handleSubmit}
         >
           CREATE ACCOUNT
         </button>
@@ -120,6 +164,7 @@ export default function Register() {
               fontSize: "17px",
               cursor: "pointer",
             }}
+            onClick={LoginFunc}
           >
             SIGN IN
           </button>
