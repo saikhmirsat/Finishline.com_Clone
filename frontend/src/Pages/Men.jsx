@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
 import img1 from "../Assets/img4.webp";
 import img2 from "../Assets/img3.webp";
 import img3 from "../Assets/DM1123_100.webp";
@@ -26,14 +26,15 @@ import img20 from "../Assets/imgA.png";
 
 import "./Men.css";
 import Footer from "../Footer/Footer";
-// import GridM1 from "../GridM1"
-// import GridM2 from "./GridM2";
-// import AfterGrid2 from "./AfterGrid2";
-// import Grid3 from "../Homepage/Grid3";
-// import Footer from "../Homepage/Footer";
-// import Paragraphm from "../Mens page/Paragraphm";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Men() {
+  const Navigate = useNavigate()
+  const runningFunc = () => {
+    Navigate('/runningshoes')
+  }
+
   return (
     <>
       <div style={{ width: "100%" }}>
@@ -128,13 +129,13 @@ export default function Men() {
               className="top-right-div"
               style={{ width: "100%", textAlign: "left" }}
             >
-              <h1 style={{ fontWeight: "bold", fontSize: "20PX" }}>
+              <h1 >
                 MEN'S SHOES, CLOTHING & ACCESSORIES
               </h1>
             </div>
 
-            <div style={{ width: "100%", margin: "auto" }}>
-              <h1 style={{ fontWeight: "bold", fontSize: "20px" }}>
+            <div className="men-shop-by-top-cat">
+              <h1>
                 SHOP BY CATEGORY
               </h1>
             </div>
@@ -148,7 +149,7 @@ export default function Men() {
               }}
               gap={1}
             >
-              <GridItem>
+              <GridItem onClick={runningFunc}>
                 <Image src={img1} />
                 <Text fontWeight={"bold"}>RUNNING SHOES</Text>
                 <a style={{ textDecoration: "underline" }}>Shop Now →</a>
@@ -156,65 +157,69 @@ export default function Men() {
 
               <GridItem>
                 <Image src={img2} />
-                <Text fontWeight={"bold"}>RUNNING SHOES</Text>
+                <Text fontWeight={"bold"}>CASUAL SHOES</Text>
                 <a style={{ textDecoration: "underline" }}>Shop Now →</a>
               </GridItem>
 
               <GridItem>
                 <Image src={img3} />
-                <Text fontWeight={"bold"}>RUNNING SHOES</Text>
+                <Text fontWeight={"bold"}>BASKETBALL SHOES</Text>
                 <a style={{ textDecoration: "underline" }}>Shop Now →</a>
               </GridItem>
               <GridItem>
                 <Image src={img4} />
-                <Text fontWeight={"bold"}>RUNNING SHOES</Text>
+                <Text fontWeight={"bold"}>SWEATSHIRTs & HOODIES</Text>
                 <a style={{ textDecoration: "underline" }}>Shop Now →</a>
               </GridItem>
 
               <GridItem>
                 <Image src={img5} />
-                <Text fontWeight={"bold"}>RUNNING SHOES</Text>
+                <Text fontWeight={"bold"}>SWEATPANTS & JOGGERS</Text>
                 <a style={{ textDecoration: "underline" }}>Shop Now →</a>
               </GridItem>
               <GridItem>
                 <Image src={img6} />
-                <Text fontWeight={"bold"}>RUNNING SHOES</Text>
+                <Text fontWeight={"bold"}>JACKET & OUTWEAR</Text>
                 <a style={{ textDecoration: "underline" }}>Shop Now →</a>
               </GridItem>
             </Grid>
             <br />
             <br />
-            <div style={{ width: "100%", margin: "auto" }}>
-              <h1 style={{ fontWeight: "bold", fontSize: "20px" }}>
+
+
+
+            <div className="men-treanding-container">
+              <Heading size='lg' marginBottom='10px'>
                 TRENDING OUTFITS
-              </h1>
-            </div>
-            <div>
+              </Heading>
               <div>
                 <img src={img7} alt="" />
                 <img src={img8} alt="" />
                 <img src={img9} alt="" />
                 <img src={img10} alt="" />
                 <img src={img11} alt="" />
+                <img src='https://content.stylitics.com/images/collage/782482cca2383e91c85ed1104b2da5672ff89ac176d1c5?png=true&background=f2f2f2' alt="" />
               </div>
             </div>
-            <hr style={{ width: "80%", margin: "auto" }} />
-
-            <>
-              <h1 >WHAT'S HOT RIGHT NOW</h1>
-
-              <div>
-
-                <div ><img className="img1" src={img12} />
-                  <p >Nike Air Max</p>
-                </div>
-                <div ><img className="img2" src={img13} />
-                  <p >classic</p>
-                </div>
 
 
-              </div>
-            </>
+
+
+            <Heading size='md' margin='20px' >WHAT'S HOT RIGHT NOW</Heading>
+            <div className="men-hot-container">
+
+              <Link ><img className="img1" src={img12} />
+                <p >Nike Air Max</p>
+              </Link>
+              <Link ><img className="img2" src={img13} />
+                <p >classic</p>
+              </Link>
+
+
+            </div>
+
+
+
             <div>
               <Grid
                 width={"100%"}
