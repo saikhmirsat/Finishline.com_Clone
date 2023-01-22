@@ -4,8 +4,10 @@ import Logo from '../image/sportszone.png'
 import ReCAPTCHA from "react-google-recaptcha";
 import Statuslogo from "../Assets/statuslogo.svg";
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export default function Register() {
+  const [Arr, setArr] = useState([])
 
   const [firstname, setFname] = useState("")
   const [lastname, setLname] = useState("")
@@ -14,32 +16,24 @@ export default function Register() {
   const [email, setEmail] = useState("")
   const navigate = useNavigate()
 
+
   const LoginFunc = () => {
     navigate('/signin')
   }
 
+  const PostRegister = (obj) => {
+    return axios.post(`https://mirsat-vercel-database.vercel.app/sportszoneuser`, obj)
+  }
+
   const handleSubmit = () => {
-    const payload = {
+    const obj = {
       firstname, lastname, dob, email, password
     }
-    console.log(payload)
-
-    if (firstname === "" || lastname === "" || dob === "" || email === "" || password === "") {
-      alert("please fill the form")
-    } else {
-      fetch("http://localhost:4500/users/register", {
-        method: 'POST',
-        body: JSON.stringify(payload),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(res => res.json())
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
-      alert("Register success")
-      navigate('/signin')
-    }
+    setArr([...Arr, obj])
+    console.log(Arr)
+    PostRegister(obj)
+    alert("Register Success")
+    navigate('/signin')
   }
 
   function onChange(value) {

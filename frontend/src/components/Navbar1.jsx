@@ -5,7 +5,7 @@ import { CiLocationOn } from 'react-icons/ci';
 import { BsPersonCircle } from 'react-icons/bs';
 import { BsBag } from 'react-icons/bs';
 import logo from '../image/sportszone.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AccountDropdown } from './Dropdown';
 import { useState } from 'react';
 import NavHamburger from './NavHamburger'
@@ -14,6 +14,12 @@ import NavHamburger from './NavHamburger'
 
 export default function Navbar1() {
     const [DropdownAccount, setDropdownAccount] = useState(false)
+    const navigate = useNavigate()
+    const bagfunc = () => {
+        navigate('/cart')
+    }
+
+
     return (
         <div className='navbar1'>
             <div className='navbar1-box'>
@@ -37,7 +43,7 @@ export default function Navbar1() {
                         <p>Account</p>
                         {DropdownAccount && <AccountDropdown />}
                     </div>
-                    <div>
+                    <div onClick={bagfunc}>
                         <BsBag size={25} />
                         <p>Bag</p>
                     </div>
