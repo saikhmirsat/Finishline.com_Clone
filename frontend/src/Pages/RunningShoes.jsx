@@ -25,7 +25,7 @@ export default function RunningShoes() {
   const ShoeData = () => {
     axios
       .get(
-        `https://mirsat-vercel-database.vercel.app/sportszone?q=${text}`
+        `https://mirsat-vercel-database.vercel.app/sportszonedata?q=${text}`
       )
       .then((res) => setData(res.data));
   };
@@ -495,7 +495,7 @@ export default function RunningShoes() {
 
         {/* Grid-container-starts */}
         <div className="Grid-container">
-          <p className="grid-container-heading">NEW ARRIVALS</p>
+          <p className="grid-container-heading">Running Shoes</p>
           {/* <p style={{ textAlign: 'left', marginLeft: '30px', fontSize: '20px' }}>{text}</p> */}
           <Grid
             width={"95%"}
@@ -526,8 +526,10 @@ export default function RunningShoes() {
       </div>
       {/* Newarrivals-main-container End */}
       <Grid
-        width={"80%"}
+        width={"90%"}
         margin="auto"
+        marginTop='20px'
+        marginBottom='20px'
         templateColumns={{
           base: "repeat(1, 1fr)",
           md: "repeat(2, 1fr)",
