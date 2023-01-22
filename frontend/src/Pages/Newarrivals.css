@@ -6,7 +6,7 @@
 .Newarrivals-main-container {
     /* border: 1px solid green; */
     display: grid;
-    grid-template-columns: repeat(2, 15% 85%);
+    grid-template-columns: repeat(2, 18% 82%);
     width: 90%;
     /* gap: 1%; */
     margin: auto;
@@ -108,7 +108,7 @@ input.checkbox {
     font-weight: bold;
 }
 
-@media screen and (min-width: 200px) and (max-width: 640px) {
+@media (max-width: 640px) {
     * {
         font-size: 12px;
     }
@@ -119,5 +119,18 @@ input.checkbox {
 
     .categories-container {
         display: none;
+    }
+
+    .Newarrivals-main-container {
+        /* border: 1px solid red; */
+    }
+
+    .categories-container {
+        /* border: 1px solid red; */
+    }
+
+    .Grid-container {
+        /* border: 1px solid red; */
+        /* width: 100%; */
     }
 }
