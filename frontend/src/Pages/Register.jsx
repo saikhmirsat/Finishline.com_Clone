@@ -71,7 +71,7 @@ export default function Register() {
 
       <div className="cover">
         <h2 style={{ fontWeight: "bold", fontSize: "20px" }}>
-          CREATE A STATUS ACCOUNT
+          CREATE A ACCOUNT
         </h2>
         <p style={{ marginTop: "20px" }}>
           <span style={{ fontWeight: "bold" }}>
@@ -111,10 +111,10 @@ export default function Register() {
           placeholder="Enter Your password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <ReCAPTCHA
+        {/* <ReCAPTCHA
           sitekey="6LfI0_8jAAAAACqjsIREK-HmcpnjXi9UD587Q2tL"
           onChange={onChange}
-        />
+        /> */}
 
         <button
           className="button"
