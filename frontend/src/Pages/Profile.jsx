@@ -7,6 +7,7 @@ import img3 from "../Assets/imgB.png";
 import img4 from "../Assets/imgA.png";
 import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
+// import { BsPersonCircle } from 'react-icons/bs';
 
 export default function Profile() {
     const navigate = useNavigate()
@@ -47,9 +48,10 @@ export default function Profile() {
                         <p className="HEADING-OF-EVERY-GRID">MY DETAILS</p>
                         <br />
                         <img
-                            src="https://cdn-icons-png.flaticon.com/512/7855/7855599.png"
+                            src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png"
                             alt=""
                         />
+                        {/* <BsPersonCircle /> */}
                         <br />
                         <Heading size="md">
                             HELLO  {User.firstname.toUpperCase()}{" "}
@@ -67,14 +69,14 @@ export default function Profile() {
                         <p className="HEADING-OF-EVERY-GRID">EMAIL AND LOGOUT</p>
                         <br />
                         <img
-                            src="https://cdn-icons-png.flaticon.com/512/9464/9464235.png"
+                            src="https://www.freepnglogos.com/uploads/email-png/email-consulting-support-network-design-morovis-6.png"
                             alt=""
                         />
                         <br />
                         <p className="my-details-name">YOUR REGISTERED EMAIL</p>
                         <br />
                         <Text className="register-email">{User.email}</Text>
-                        <Button bg="orange" onClick={logoutFunc}>
+                        <Button bg="#5271FF" onClick={logoutFunc}>
                             LOGOUT
                         </Button>
                         <br />

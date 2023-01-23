@@ -63,17 +63,17 @@ export default function NavHamburger() {
                     <DrawerHeader textAlign="center" borderBottom="1px solid  rgb(191, 190, 190)">CATEGORIES</DrawerHeader>
 
                     <DrawerBody>
-                        <Link to='/newarrival' className="hamburger-catagories-box" >
+                        <Link to='/newarrivals' className="hamburger-catagories-box" >
                             <img src="https://media.finishline.com/s/finishline/FD0664_400?$Main$&$global_access_grid$&layer0=[h=245&w=245&bg=rgb(237,237,237)]&h=245&w=245&fmt=webp" alt="" />
                             <p>New Arrivals</p>
                             <MdOutlineArrowForwardIos />
                         </Link>
-                        <Link className="hamburger-catagories-box">
+                        <Link to='/men' className="hamburger-catagories-box">
                             <img src="https://media.finishline.com/s/finishline/DM1123_100?$Small$&fmt=webp" alt="" />
                             <p>Men</p>
                             <MdOutlineArrowForwardIos />
                         </Link>
-                        <Link className="hamburger-catagories-box">
+                        <Link to='/women' className="hamburger-catagories-box">
                             <img src="https://media.finishline.com/s/finishline/IG9653_624?$Small$&fmt=webp" alt="" />
                             <p>Women</p>
                             <MdOutlineArrowForwardIos />
@@ -103,10 +103,10 @@ export default function NavHamburger() {
                             <p>Sales</p>
                             <MdOutlineArrowForwardIos />
                         </Link>
-                        <button className='hamburger-catagories-brand'>
+                        <butto className='hamburger-catagories-brand'>
                             Brands
                             <MdOutlineArrowForwardIos />
-                        </button><br />
+                        </butto><br />
                         <div className='hamburger-catagories-release '>
                             Releases
                         </div>

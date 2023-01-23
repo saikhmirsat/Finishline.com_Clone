@@ -12,7 +12,15 @@
     margin: auto;
 }
 
+.arrival-loading-div {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+}
 
+.arrival-loading-div>img {
+    width: 400px;
+}
 
 .categories-container-name-checkbox-div {
     display: flex;
