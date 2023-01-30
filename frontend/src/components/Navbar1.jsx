@@ -28,23 +28,23 @@ export default function Navbar1() {
                 </div>
                 <div className='nav1-right'>
                     <div className='nav1-search-div'>
-                        <IoIosSearch size={30} />
+                        <IoIosSearch className="nav-search-icon" />
                         <input type="text" placeholder='Search' />
                     </div>
                     <div>
-                        <CiLocationOn size={25} />
+                        <CiLocationOn className='nav-location-icon' />
                         <p>Choose a store</p>
                     </div>
                     <div
                         onMouseEnter={() => setDropdownAccount(true)}
                         onMouseLeave={() => setDropdownAccount(false)}
                     >
-                        <BsPersonCircle size={25} />
+                        <BsPersonCircle className='nav-profile-icon' />
                         <p>Account</p>
                         {DropdownAccount && <AccountDropdown />}
                     </div>
                     <div onClick={bagfunc}>
-                        <BsBag size={25} />
+                        <BsBag className='nav-bag-icon'/>
                         <p>Bag</p>
                     </div>
                 </div>

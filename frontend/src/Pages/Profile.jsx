@@ -19,7 +19,7 @@ export default function Profile() {
         window.location.reload()
     }
 
-    const User = JSON.parse(localStorage.getItem("userLogin"))
+    const User = JSON.parse(localStorage.getItem("user"))
     console.log(User)
 
     return (

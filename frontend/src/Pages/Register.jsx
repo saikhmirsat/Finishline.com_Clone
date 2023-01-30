@@ -21,19 +21,34 @@ export default function Register() {
     navigate('/signin')
   }
 
-  const PostRegister = (obj) => {
-    return axios.post(`https://mirsat-vercel-database.vercel.app/sportszoneuser`, obj)
-  }
 
-  const handleSubmit = () => {
-    const obj = {
-      firstname, lastname, dob, email, password
+
+  const handlesubmit = () => {
+    const payload = {
+      firstname,
+      lastname,
+      dob,
+      email,
+      password
     }
-    setArr([...Arr, obj])
-    console.log(Arr)
-    PostRegister(obj)
-    alert("Register Success")
-    navigate('/signin')
+    console.log(payload)
+
+    try {
+      fetch(`https://dull-puce-hedgehog-ring.cyclic.app/users/register`, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-type": "application/json"
+        }
+      }).then((res) => res.json())
+        .then((res) => console.log(res))
+      alert("Register Successfull")
+      navigate('/signin')
+    } catch (err) {
+      console.log(err)
+    }
+
+
   }
 
   function onChange(value) {
@@ -84,12 +99,14 @@ export default function Register() {
           style={{ padding: "10px" }}
           type="text"
           placeholder="First Name"
+          value={firstname}
           onChange={(e) => setFname(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="text"
           placeholder="Last Name"
+          value={lastname}
           onChange={(e) => setLname(e.target.value)}
         />
         <input
@@ -97,18 +114,21 @@ export default function Register() {
           placeholder="Birth Date"
           class="textbox-n"
           type="text"
+          value={dob}
           onChange={(e) => setDob(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="email"
           placeholder="Enter Your Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="password"
           placeholder="Enter Your password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         {/* <ReCAPTCHA
@@ -128,7 +148,7 @@ export default function Register() {
             cursor: "pointer",
           }}
 
-          onClick={handleSubmit}
+          onClick={handlesubmit}
         >
           CREATE ACCOUNT
         </button>

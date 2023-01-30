@@ -3,14 +3,9 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/navigation";
-import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs } from "swiper";
+
 import './MenDetail.css'
-import { BsStarFill } from 'react-icons/bs';
+import { BsFillStarFill } from 'react-icons/bs';
 import { BiMap } from 'react-icons/bi';
 import { BsPlusLg } from 'react-icons/bs';
 import status from '../image/status.jpg'
@@ -19,19 +14,34 @@ import { Heading } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../Redux/action'
 import { useSelector } from 'react-redux'
+import ViewProduct from '../Sliders/ViewProduct'
+import menSize from '../image/men_size.png'
+import womenSize from '../image/women_size.png'
+import kidsSize from '../image/kids_size.png'
+import unisexSize from '../image/unisex_size.png'
+
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    Button,
+    Tabs, TabList, TabPanels, Tab, TabPanel
+} from '@chakra-ui/react'
 
 
 export default function MenDetail() {
     const dispatch = useDispatch()
     const [obj, setObj] = useState({})
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+    // const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [sizeactive, setsizeActive] = useState(false);
-    const [cart, setCart] = useState([]);
-
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const cartvalue = useSelector((store) => store.cart.cart.length)
     console.log({ "cartvalue": cartvalue })
-
     //this function for chekbox
     const [selectedValue, setSelectedValue] = React.useState("first");
     const handleChange = React.useCallback(
@@ -47,7 +57,6 @@ export default function MenDetail() {
         setsizeActive(!sizeactive);
     };
 
-
     const { id } = useParams()
     console.log(id)
 
@@ -57,93 +66,27 @@ export default function MenDetail() {
     }, [id])
     console.log(obj)
 
-    // const handleAddToCart = (ele) => {
 
-
-    //     axios.post(`https://mirsat-vercel-database.vercel.app/sportszonecart`, ele)
-    //         .then((res) => {
-    //             setCart([...cart, res.data])
-    //             alert("Product added to the cart !");
-    //             // window.location.reload()
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //             alert("This product is already in your cart")
-    //         })
-
-
-    // };
 
     const addToCartFunc = () => {
         dispatch(addProduct(obj))
         alert("Product Added Successfully in your Cart!")
     }
 
+
     return (
         <div>
             <div className='men-detail-main-con'>
                 <div className='men-detail-prod-box'>
-                    <Swiper
-                        style={{
-                            "--swiper-navigation-color": "#fff",
-                            "--swiper-pagination-color": "#fff",
-                        }}
-                        spaceBetween={10}
-                        navigation={true}
-                        thumbs={{ swiper: thumbsSwiper }}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper2"
-                    >
-                        <SwiperSlide >
-                            <img src={obj.image1} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image2} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image4} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image5} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image6} alt="" />
-                        </SwiperSlide>
-
-                    </Swiper >
-                    <Swiper
-                        onSwiper={setThumbsSwiper}
-                        spaceBetween={10}
-                        slidesPerView={5}
-                        freeMode={true}
-                        watchSlidesProgress={true}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper"
-                    >
-                        <SwiperSlide>
-                            <img src={obj.image1} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image2} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image4} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image5} alt="" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={obj.image6} alt="" />
-                        </SwiperSlide>
-                    </Swiper>
+                    <ViewProduct img1={obj && obj.image1} img2={obj && obj.image2} img3={obj && obj.image4} img4={obj && obj.image5} img5={obj && obj.image6} />
                 </div>
-                <div>
+                <div className='men-detail-second-child'>
                     <div className='men-detail-rating-div'>
-                        <BsStarFill size='12px' />
-                        <BsStarFill size='12px' />
-                        <BsStarFill size='12px' />
-                        <BsStarFill size='12px' />
-                        <BsStarFill size='12px' />
+                        <BsFillStarFill size='20px' />
+                        <BsFillStarFill size='20px' />
+                        <BsFillStarFill size='20px' />
+                        <BsFillStarFill size='20px' />
+                        <BsFillStarFill size='20px' />
                     </div>
 
                     <h1 className='men-detail-title'>{obj.title}</h1>
@@ -153,12 +96,71 @@ export default function MenDetail() {
                     </div>
                     <hr style={{ marginTop: '20px' }} />
                     <div className='men-detail-color'>
-                        <div style={{ fontWeight: 'bold' }} >Color :</div>
+                        <div style={{ fontWeight: 'bold' }} >Color : {obj.color}</div>
                         <div id='men-color' style={{ backgroundColor: `${obj.color}` }}></div>
                     </div>
                     <div className='men-detail-size-div'>
                         <h1>Size</h1>
-                        <button>Size Chart</button>
+                        <Button onClick={onOpen}>Size Chart</Button>
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                            <ModalOverlay />
+                            <ModalContent>
+                                <ModalHeader>SIZE CHART</ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody>
+                                    {/* =========== */}
+                                    <Tabs>
+                                        <TabList>
+                                            <Tab>MEN'S</Tab>
+                                            <Tab>WOMEN'S</Tab>
+                                            <Tab>KIDS'</Tab>
+                                            <Tab>UNISEX</Tab>
+                                        </TabList>
+
+                                        <TabPanels>
+                                            <TabPanel>
+                                                <Heading size='md' marginBottom='10px'>MEN'S</Heading>
+                                                <Text marginBottom='10px'>Tap on the image</Text>
+                                                <a href={menSize} target="_blank">
+                                                    <img src={menSize} alt="men size" />
+
+                                                </a>
+                                            </TabPanel>
+                                            <TabPanel>
+                                                <Heading size='md' marginBottom='10px'>WOMEN'S</Heading>
+                                                <Text marginBottom='10px'>Tap on the image</Text>
+                                                <a href={womenSize} target="_blank">
+                                                    <img src={womenSize} alt="men size" />
+
+                                                </a>
+                                            </TabPanel>
+                                            <TabPanel>
+                                                <Heading size='md' marginBottom='10px'>KIDS'</Heading>
+                                                <Text marginBottom='10px'>Tap on the image</Text>
+                                                <a href={kidsSize} target="_blank">
+                                                    <img src={kidsSize} alt="men size" />
+
+                                                </a>
+                                            </TabPanel>
+                                            <TabPanel>
+                                                <Heading size='md' marginBottom='10px'>UNISEX</Heading>
+                                                <Text marginBottom='10px'>Tap on the image</Text>
+                                                <a href={unisexSize} target="_blank">
+                                                    <img src={unisexSize} alt="men size" />
+
+                                                </a>
+                                            </TabPanel>
+                                        </TabPanels>
+                                    </Tabs>
+                                    {/* =========== */}
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                        Close
+                                    </Button>
+                                </ModalFooter>
+                            </ModalContent>
+                        </Modal>
                     </div>
                     <div className='men-detail-size-number'>
                         <button onClick={handleClick} className={sizeactive ? "sizeactive" : "sizenotactive"}>M 7.5 / W 9.0</button>

@@ -12,34 +12,40 @@ export default function Signing() {
 
   const Navigate = useNavigate()
 
-  const GetData = () => {
-    axios.get(`https://mirsat-vercel-database.vercel.app/sportszoneuser`)
-      .then((res) => setData(res.data))
-  }
-  useEffect(() => {
-    GetData()
-  }, [])
-
   let x = false
   const LoginFunc = () => {
-    data.map((ele) => {
-      if (ele.email === email && ele.password === password) {
-        x = true;
-      }
-    })
-    if (x) {
-      alert("Login Success")
-      localStorage.setItem("isAuth", true)
-      localStorage.setItem("userLogin", JSON.stringify(data[data.length - 1]))
-      Navigate('/userprofile')
-      window.location.reload()
+    const payload = { email, password }
+
+    if (email == "" || password == "") {
+      alert("Please enter all the details")
     } else {
-      alert("Something Wrong")
+      fetch("https://dull-puce-hedgehog-ring.cyclic.app/users/login", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          // console.log(res)
+          alert(res.msg)
+          localStorage.setItem("token", res.token)
+          localStorage.setItem("user", JSON.stringify(res))
+          localStorage.setItem("isAuth", true)
+          Navigate('/userprofile')
+        })
+        .catch((err) =>
+          alert("Wrong Credential")
+
+        )
     }
   }
-  const checkIsAuth = JSON.parse(localStorage.getItem("isAuth"))
-  // const User = JSON.parse(localStorage.getItem("userLogin"))
 
+
+
+
+  const checkIsAuth = JSON.parse(localStorage.getItem("isAuth"))
 
 
 
@@ -65,12 +71,14 @@ export default function Signing() {
             style={{ padding: "10px" }}
             type="email"
             placeholder="Enter Your Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             style={{ padding: "10px" }}
             type="password"
             placeholder="Enter Your password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 
