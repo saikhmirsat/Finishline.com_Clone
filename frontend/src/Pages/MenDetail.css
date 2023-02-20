@@ -209,3 +209,57 @@
     display: flex;
     justify-content: space-between;
 }
+
+.size-chart-image-div {
+    /* border: 1px solid red; */
+    height: 200px;
+}
+
+.size-chart-image-div>img {
+    /* border: 1px solid red; */
+
+}
+
+@media (max-width:1024px) {
+    .men-detail-main-con {
+        border: 1px solid red;
+        width: 90%;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .men-detail-prod-box {
+        /* border: 1px solid green; */
+        margin: auto;
+    }
+
+
+}
+
+@media (max-width: 640px) {
+    .men-detail-main-con {
+        border: 1px solid red;
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .men-detail-prod-box {
+        /* margin: 0px; */
+        /* padding: 0px; */
+        border: 1px solid blueviolet;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        height: 300px;
+    }
+
+    .men-detail-main-con>div {
+        width: 350px;
+        /* height: 200px; */
+    }
+
+    .men-detail-second-child {
+        border: 1px solid greenyellow;
+        margin: 0px;
+        width: 100%;
+    }
+}

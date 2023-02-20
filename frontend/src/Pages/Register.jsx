@@ -4,10 +4,14 @@ import Logo from '../image/sportszone.png'
 import ReCAPTCHA from "react-google-recaptcha";
 import Statuslogo from "../Assets/statuslogo.svg";
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+// import axios from 'axios'
+// import { useToast } from '@chakra-ui/react'
 
 export default function Register() {
-  const [Arr, setArr] = useState([])
+  // const [Arr, setArr] = useState([])
+
+  const [captcha, setCaptcha] = useState(false)
+  console.log(captcha)
 
   const [firstname, setFname] = useState("")
   const [lastname, setLname] = useState("")
@@ -15,29 +19,56 @@ export default function Register() {
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
   const navigate = useNavigate()
+  // const toast = useToast()
+
 
 
   const LoginFunc = () => {
     navigate('/signin')
   }
 
-  const PostRegister = (obj) => {
-    return axios.post(`https://mirsat-vercel-database.vercel.app/sportszoneuser`, obj)
-  }
 
-  const handleSubmit = () => {
-    const obj = {
-      firstname, lastname, dob, email, password
+  var date = new Date().getDate().toString()
+  var month = new Date().getMonth() + (1).toString()
+  var year = new Date().getFullYear().toString()
+  const fulldate = (`${date}/${month}/${year}`)
+  console.log(fulldate)
+
+  const handlesubmit = async () => {
+    const payload = {
+      firstname,
+      lastname,
+      dob,
+      email,
+      password,
+      registerfulldate: fulldate,
+      registeryear: new Date().getFullYear()
     }
-    setArr([...Arr, obj])
-    console.log(Arr)
-    PostRegister(obj)
-    alert("Register Success")
-    navigate('/signin')
+    console.log(payload)
+
+
+    // https://dull-puce-hedgehog-ring.cyclic.app
+    try {
+      await fetch('https://kerchief-sturgeon.cyclic.app/users/register', {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-type": "application/json"
+        }
+      }).then((res) => res.json())
+        .then((res) => console.log(res))
+
+
+      alert("Register Successfull")
+      navigate('/signin')
+    } catch (err) {
+      console.log({ "err": err })
+    }
   }
 
   function onChange(value) {
     console.log("Captcha value:", value);
+    setCaptcha(true)
   }
 
   return (
@@ -80,55 +111,53 @@ export default function Register() {
           <br />
           Get Points. Gain Access. Boost your STATUS.
         </p>
+
         <input
           style={{ padding: "10px" }}
           type="text"
           placeholder="First Name"
+          value={firstname}
           onChange={(e) => setFname(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="text"
           placeholder="Last Name"
+          value={lastname}
           onChange={(e) => setLname(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
-          placeholder="Birth Date"
+          placeholder="Date of birth"
           class="textbox-n"
-          type="text"
+          type="date"
+          value={dob}
           onChange={(e) => setDob(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="email"
           placeholder="Enter Your Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           style={{ padding: "10px" }}
           type="password"
           placeholder="Enter Your password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* <ReCAPTCHA
+        <ReCAPTCHA
+          className="capthabox"
           sitekey="6LfI0_8jAAAAACqjsIREK-HmcpnjXi9UD587Q2tL"
           onChange={onChange}
-        /> */}
+        />
 
         <button
-          className="button"
-          style={{
-            padding: "10px",
-            fontWeight: "bold",
-            backgroundColor: "aqua",
-            color: "black",
-            border: "none",
-            fontSize: "17px",
-            cursor: "pointer",
-          }}
-
-          onClick={handleSubmit}
+          className="reg-register-button"
+          onClick={handlesubmit}
+          disabled={captcha === false && true}
         >
           CREATE ACCOUNT
         </button>

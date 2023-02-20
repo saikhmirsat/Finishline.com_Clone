@@ -59,3 +59,52 @@ input {
     width: 16em;
     justify-content: center;
 }
+
+input[type="date"]::before {
+    color: #999;
+    content: attr(placeholder);
+    margin-right: 122px;
+    /* push the default placeholder out.. you can add more if you want */
+}
+
+input[type="date"]:focus::before {
+    content: "" !important;
+    display: none;
+}
+
+.reg-register-button {
+    padding: 10px;
+    font-weight: bold;
+    background-color: aqua;
+    color: black;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.reg-register-button[disabled] {
+    background-color: #c9cbc9;
+    color: #999;
+}
+
+.capthabox {
+    /* border: 1px solid rgb(227, 226, 226); */
+}
+
+
+.capthabox>div {
+    /* border: 1px solid red; */
+    width: 100%;
+    /* background-color: #f9f9f9; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.capthabox>div>div {
+    /* background-color: aqua; */
+}
+
+.capthabox>div>div>div {
+    /* background-color: rgb(0, 255, 47); */
+}

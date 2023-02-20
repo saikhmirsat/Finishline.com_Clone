@@ -4,6 +4,7 @@ import Statuslogo from "../Assets/statuslogo.svg";
 import Logo from '../image/sportszone.png'
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { useToast } from '@chakra-ui/react'
 
 export default function Signing() {
   const [data, setData] = useState([])
@@ -11,35 +12,68 @@ export default function Signing() {
   const [password, setPassword] = useState("")
 
   const Navigate = useNavigate()
-
-  const GetData = () => {
-    axios.get(`https://mirsat-vercel-database.vercel.app/sportszoneuser`)
-      .then((res) => setData(res.data))
-  }
-  useEffect(() => {
-    GetData()
-  }, [])
+  const toast = useToast()
 
   let x = false
   const LoginFunc = () => {
-    data.map((ele) => {
-      if (ele.email === email && ele.password === password) {
-        x = true;
-      }
-    })
-    if (x) {
-      alert("Login Success")
-      localStorage.setItem("isAuth", true)
-      localStorage.setItem("userLogin", JSON.stringify(data[data.length - 1]))
-      Navigate('/userprofile')
-      window.location.reload()
+    const payload = { email, password }
+
+    if (email == "" || password == "") {
+      // alert("Please enter all the details")
+      toast({
+        position: 'top',
+        variant: 'top-accent',
+        title: 'Missing information',
+        description: `Please enter all mandatory fields`,
+        status: 'warning',
+        duration: 5000,
+        isClosable: true
+      })
     } else {
-      alert("Something Wrong")
+      fetch("https://kerchief-sturgeon.cyclic.app/users/login", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          // console.log(res)
+          alert(res.msg)
+          localStorage.setItem("token", res.token)
+          localStorage.setItem("user", JSON.stringify(res))
+          localStorage.setItem("isAuth", true)
+          toast({
+            position: 'top',
+            title: 'Success!!!',
+            description: 'Login Successful',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
+          Navigate('/userprofile')
+        })
+        .catch((err) =>
+          // alert("Wrong Credential")
+          toast({
+            position: 'top',
+            variant: 'top-accent',
+            title: 'Wrong Credential',
+            description: 'Something went wrong please try again',
+            status: 'error',
+            duration: 5000,
+            isClosable: true
+          })
+
+        )
     }
   }
-  const checkIsAuth = JSON.parse(localStorage.getItem("isAuth"))
-  // const User = JSON.parse(localStorage.getItem("userLogin"))
 
+
+
+
+  const checkIsAuth = JSON.parse(localStorage.getItem("isAuth"))
 
 
 
@@ -65,12 +99,14 @@ export default function Signing() {
             style={{ padding: "10px" }}
             type="email"
             placeholder="Enter Your Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             style={{ padding: "10px" }}
             type="password"
             placeholder="Enter Your password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
 

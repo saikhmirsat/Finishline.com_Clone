@@ -22,6 +22,9 @@ import Sales from '../Pages/Sales'
 import Signin from '../Pages/Signin'
 import Status from '../Pages/Status'
 import Women from '../Pages/Women'
+import AdminRegister from '../Pages/AdminRegister'
+import AdminSignin from '../Pages/AdminSignin'
+import AdminProfile from '../Pages/AdminProfile'
 
 export default function Allroutes() {
     return (
@@ -47,6 +50,9 @@ export default function Allroutes() {
             <Route path='/runningshoes' element={<RunningShoes />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/checkout' element={<Checkout />}></Route>
+            <Route path='/adminregister' element={<AdminRegister />}></Route>
+            <Route path='/adminsignin' element={<AdminSignin />}></Route>
+            <Route path='/adminprofile' element={<AdminProfile />}></Route>
             {/* <Route path='' element={}></Route> */}
         </Routes>
     )

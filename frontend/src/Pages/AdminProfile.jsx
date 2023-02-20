@@ -9,24 +9,24 @@ import { useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
 // import { BsPersonCircle } from 'react-icons/bs';
 
-export default function Profile() {
+export default function AdminProfile() {
     const navigate = useNavigate()
 
     const logoutFunc = () => {
-        localStorage.setItem("isAuth", false)
+        localStorage.setItem("isAuthAdmin", false)
         localStorage.removeItem("token")
-        localStorage.removeItem("user")
-        localStorage.removeItem("isAuth")
+        localStorage.removeItem("admin")
+        localStorage.removeItem("isAuthAdmin")
         alert("Are You sure to logout")
-        navigate('/signin')
+        navigate('/adminsignin')
     }
 
-    const User = JSON.parse(localStorage.getItem("user"))
+    const User = JSON.parse(localStorage.getItem("admin"))
     console.log(User)
 
     return (
         <div className="profile-container">
-            <Heading className="profile-heading">PROFILE</Heading>
+            <Heading className="profile-heading">ADMIN PROFILE</Heading>
             <br />
             <br />
 
