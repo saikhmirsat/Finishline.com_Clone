@@ -45,7 +45,7 @@ export default function AddProducts() {
         }
         console.log(obj)
         try {
-            await fetch('http://localhost:4000/products/add', {
+            await fetch('https://gray-dead-springbok.cyclic.app/add', {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {

@@ -24,7 +24,7 @@ export default function Dashboard() {
     const getData = () => {
         try {
 
-            fetch(`http://localhost:4000/users`, {
+            fetch(`https://gray-dead-springbok.cyclic.app/users`, {
                 method: "GET",
                 headers: {
                     "Content-type": "application/json"
@@ -42,7 +42,7 @@ export default function Dashboard() {
     const getProducts = () => {
         try {
 
-            fetch(`http://localhost:4000/products`, {
+            fetch(`https://gray-dead-springbok.cyclic.app/products`, {
                 method: "GET",
                 headers: {
                     "Content-type": "application/json"

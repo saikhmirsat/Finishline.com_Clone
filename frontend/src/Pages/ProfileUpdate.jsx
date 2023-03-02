@@ -19,7 +19,7 @@ export default function ProfileUpdate() {
     const user = JSON.parse(localStorage.getItem("user"))
     const userid = user.id
     const GetData = () => {
-        axios.get(`http://localhost:4000/users/${userid}`)
+        axios.get(`https://gray-dead-springbok.cyclic.app/users/${userid}`)
             .then((res) => setUserdata(res.data.user))
     }
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function ProfileUpdate() {
         }
         console.log(obj)
         try {
-            fetch(`http://localhost:4000/users/update/${userid}`, {
+            fetch(`https://gray-dead-springbok.cyclic.app/users/update/${userid}`, {
                 method: "PATCH",
                 headers: {
                     "Content-type": "application/json"

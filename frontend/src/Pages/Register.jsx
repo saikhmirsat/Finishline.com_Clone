@@ -49,7 +49,7 @@ export default function Register() {
 
 
     try {
-      await fetch('http://localhost:4000/users/register', {
+      await fetch('https://gray-dead-springbok.cyclic.app/users/register', {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {

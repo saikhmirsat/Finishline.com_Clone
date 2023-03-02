@@ -7,7 +7,7 @@ import { Modal, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseBut
 
 export default function Inventory() {
   const [products, setSetProducts] = useState([])
-  
+
 
   // =============edit modal==========
   const [title, setTitle] = useState("")
@@ -42,7 +42,7 @@ export default function Inventory() {
       image1: image1 || prodObject.image1
     }
     try {
-      fetch(`http://localhost:4000/products/update/${id}`, {
+      fetch(`https://gray-dead-springbok.cyclic.app/products/update/${id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json"
@@ -73,7 +73,7 @@ export default function Inventory() {
   const getProducts = () => {
     try {
 
-      fetch(`http://localhost:4000/products`, {
+      fetch(`https://gray-dead-springbok.cyclic.app/products`, {
         method: "GET",
         headers: {
           "Content-type": "application/json"
@@ -90,7 +90,7 @@ export default function Inventory() {
   }
   const ProductDelete = async (id) => {
     try {
-      await fetch(`http://localhost:4000/products/delete/${id}`, {
+      await fetch(`https://gray-dead-springbok.cyclic.app/products/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json"

@@ -45,7 +45,7 @@ export default function Users() {
     const getData = () => {
         try {
             setLoading(true)
-            fetch(`http://localhost:4000/users`, {
+            fetch(`https://gray-dead-springbok.cyclic.app/users`, {
                 method: "GET",
                 headers: {
                     "Content-type": "application/json"
@@ -67,7 +67,7 @@ export default function Users() {
 
     const userDelete = async (id) => {
         try {
-            await fetch(`http://localhost:4000/users/delete/${id}`, {
+            await fetch(`https://gray-dead-springbok.cyclic.app/users/delete/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-type": "application/json"
@@ -100,7 +100,7 @@ export default function Users() {
         }
         console.log(obj)
         try {
-            fetch(`http://localhost:4000/users/update/${id}`, {
+            fetch(`https://gray-dead-springbok.cyclic.app/users/update/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-type": "application/json"
@@ -162,7 +162,7 @@ export default function Users() {
                                     isOpen={isOpen}
                                     onClose={onClose}
                                 >
-                                    <ModalOverlay />
+                                    {/* <ModalOverlay /> */}
                                     <ModalContent>
                                         <ModalHeader>Edit User Detail</ModalHeader>
                                         <ModalCloseButton />

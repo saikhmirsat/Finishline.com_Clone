@@ -35,7 +35,7 @@ export default function Signing() {
         isClosable: true
       })
     } else {
-      fetch("http://localhost:4000/users/login", {
+      fetch("https://gray-dead-springbok.cyclic.app/users/login", {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {
