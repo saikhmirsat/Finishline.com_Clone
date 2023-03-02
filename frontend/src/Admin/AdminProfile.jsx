@@ -1,5 +1,5 @@
 import React from 'react'
-import './Profile.css'
+import '../Pages/Profile.css'
 import { Heading, Button, Text, Grid, GridItem, Image } from "@chakra-ui/react";
 import img1 from "../Assets/imgD.png";
 import img2 from "../Assets/imgC.png";

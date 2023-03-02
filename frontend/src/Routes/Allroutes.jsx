@@ -22,9 +22,11 @@ import Sales from '../Pages/Sales'
 import Signin from '../Pages/Signin'
 import Status from '../Pages/Status'
 import Women from '../Pages/Women'
-import AdminRegister from '../Pages/AdminRegister'
-import AdminSignin from '../Pages/AdminSignin'
-import AdminProfile from '../Pages/AdminProfile'
+import AdminRegister from '../Admin/AdminRegister'
+import AdminSignin from '../Admin/AdminSignin'
+import AdminProfile from '../Admin/AdminProfile'
+import ProfileUpdate from '../Pages/ProfileUpdate'
+import AdminDashboard from '../Admin/AdminDashboard'
 
 export default function Allroutes() {
     return (
@@ -47,12 +49,14 @@ export default function Allroutes() {
             <Route path='/men/:id' element={<MenDetail />}></Route>
             <Route path='/menitems' element={<MenItem />}></Route>
             <Route path='/userprofile' element={<Profile />}></Route>
+            <Route path='/profileupdate' element={<ProfileUpdate />}></Route>
             <Route path='/runningshoes' element={<RunningShoes />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/checkout' element={<Checkout />}></Route>
             <Route path='/adminregister' element={<AdminRegister />}></Route>
             <Route path='/adminsignin' element={<AdminSignin />}></Route>
             <Route path='/adminprofile' element={<AdminProfile />}></Route>
+            <Route path='/admindashboard' element={<AdminDashboard />}></Route>
             {/* <Route path='' element={}></Route> */}
         </Routes>
     )

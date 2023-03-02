@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { men, NavNewArrival } from './NavbarData'
 import { NavMenSlider } from './NavSlider'
+import { LoginContext } from '../context/LoginDetail'
+import { useContext } from 'react'
 
 
 
@@ -37,16 +39,18 @@ export const NewArrivalDropdown = () => {
     )
 }
 
-const checkIsAuth = JSON.parse(localStorage.getItem("isAuth"))
-const checkAdminIsAuth = JSON.parse(localStorage.getItem("isAuthAdmin"))
+// const checkIsAuth = JSON.parse(localStorage.getItem("isAuth"))
+// const isAdmin = JSON.parse(localStorage.getItem("isAdmin"))
 
 export const AccountDropdown = () => {
+
+    const { isAdmin, isAuth } = useContext(LoginContext)
+
     const [dropdown, setDropdown] = useState(false)
     return (
         <div id='Account-Submenu' className={dropdown ? 'Account-Submenu-Open' : 'Account-Submenu-Close'} onClick={() => setDropdown(!dropdown)}>
-            {checkAdminIsAuth ? "" : <Link to={checkIsAuth ? '/userprofile' : "/signin"}>{checkIsAuth ? "Profile" : "User Sign In"}</Link>}
-            {checkIsAuth ? "" : <Link to={checkAdminIsAuth ? '/adminprofile' : "/adminsignin"}>{checkAdminIsAuth ? "Admin Profile" : "Admin Sign In"}</Link>}
-            {/* {checkIsAuth ? "" : <Link to="/register">Register</Link>} */}
+            <Link to={isAdmin || isAuth ? '/userprofile' : "/signin"}>{isAdmin || isAuth ? "Profile" : "Sign In"}</Link>
+            {isAdmin ? <Link to="/admindashboard">Dashboard</Link> : ""}
             <Link to="/status">STATUS</Link>
             <Link to="/favorites">Favorites</Link>
         </div>

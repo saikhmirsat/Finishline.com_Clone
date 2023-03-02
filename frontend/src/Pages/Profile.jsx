@@ -5,24 +5,34 @@ import img1 from "../Assets/imgD.png";
 import img2 from "../Assets/imgC.png";
 import img3 from "../Assets/imgB.png";
 import img4 from "../Assets/imgA.png";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Footer from '../Footer/Footer'
+import { useContext } from 'react';
+import { LoginContext } from '../context/LoginDetail'
 // import { BsPersonCircle } from 'react-icons/bs';
 
 export default function Profile() {
     const navigate = useNavigate()
+
+    const { User } = useContext(LoginContext)
+    console.log(User)
 
     const logoutFunc = () => {
         localStorage.setItem("isAuth", false)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         localStorage.removeItem("isAuth")
+
+        const admin = JSON.parse(localStorage.getItem("isAdmin"))
+        if (admin) {
+            localStorage.removeItem("isAdmin")
+        }
         alert("Are You sure to logout")
         navigate('/signin')
     }
 
-    const User = JSON.parse(localStorage.getItem("user"))
-    console.log(User)
+    // const User = JSON.parse(localStorage.getItem("user"))
+    // console.log(User)
 
     return (
         <div className="profile-container">
@@ -50,22 +60,20 @@ export default function Profile() {
                         <p className="HEADING-OF-EVERY-GRID">MY DETAILS</p>
                         <br />
                         <img
-                            src="https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png"
+                            src={User.avatar}
                             alt=""
                         />
-                        {/* <BsPersonCircle /> */}
                         <br />
                         <Heading size="md">
-                            HELLO  {User.firstname.toUpperCase()}{" "}
-                            {User.lastname.toUpperCase()}
+                            HELLO  {User.firstname}{" "}
+                            {User.lastname}
                         </Heading>
                         <br />
                         <Text className="dob">Date of birth: {User.dob}</Text>
                         <Text>You've been with us since {User.registeryear}</Text>
+                        <Button><Link to='/profileupdate'>Edit Your Profile</Link></Button>
                         <br />
                     </GridItem>
-
-
                     {/* GRID ITEM 2 */}
                     <GridItem className="grid-items-profile">
                         <br />

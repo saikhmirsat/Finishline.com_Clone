@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Signing.css";
+import "../Pages/Signing.css";
 import Statuslogo from "../Assets/statuslogo.svg";
 import Logo from '../image/sportszone.png'
 import { useNavigate } from "react-router-dom";

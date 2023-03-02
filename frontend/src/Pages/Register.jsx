@@ -4,11 +4,10 @@ import Logo from '../image/sportszone.png'
 import ReCAPTCHA from "react-google-recaptcha";
 import Statuslogo from "../Assets/statuslogo.svg";
 import { useNavigate } from 'react-router-dom'
-// import axios from 'axios'
-// import { useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 
 export default function Register() {
-  // const [Arr, setArr] = useState([])
+
 
   const [captcha, setCaptcha] = useState(false)
   console.log(captcha)
@@ -18,8 +17,9 @@ export default function Register() {
   const [dob, setDob] = useState("")
   const [password, setPassword] = useState("")
   const [email, setEmail] = useState("")
+  const [gender, setGender] = useState("male")
   const navigate = useNavigate()
-  // const toast = useToast()
+  const toast = useToast()
 
 
 
@@ -42,27 +42,52 @@ export default function Register() {
       email,
       password,
       registerfulldate: fulldate,
-      registeryear: new Date().getFullYear()
+      registeryear: new Date().getFullYear(),
+      gender
     }
     console.log(payload)
 
 
-    // https://dull-puce-hedgehog-ring.cyclic.app
     try {
-      await fetch('https://kerchief-sturgeon.cyclic.app/users/register', {
+      await fetch('http://localhost:4000/users/register', {
         method: "POST",
         body: JSON.stringify(payload),
         headers: {
           "Content-type": "application/json"
         }
       }).then((res) => res.json())
-        .then((res) => console.log(res))
+        .then((res) => {
+          if (res.success) {
+            toast({
+              position: 'top',
+              title: res.msg,
+              description: "",
+              status: 'success',
+              duration: 5000,
+              isClosable: true,
+            })
+            navigate('/signin')
+          } else {
+            toast({
+              position: 'top',
+              title: res.msg,
+              description: "",
+              status: 'warning',
+              duration: 5000,
+              isClosable: true,
+            })
+          }
 
-
-      alert("Register Successfull")
-      navigate('/signin')
+        })
     } catch (err) {
-      console.log({ "err": err })
+      toast({
+        position: 'top',
+        title: err,
+        description: "",
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
     }
   }
 
@@ -134,6 +159,12 @@ export default function Register() {
           value={dob}
           onChange={(e) => setDob(e.target.value)}
         />
+        <select name="" id="" onChange={(e) => setGender(e.target.value)}>
+          <option value="">Choose Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="others">Others</option>
+        </select>
         <input
           style={{ padding: "10px" }}
           type="email"

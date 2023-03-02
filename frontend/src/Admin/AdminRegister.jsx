@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Register.css";
+import "../Pages/Register.css";
 import Logo from '../image/sportszone.png'
 import ReCAPTCHA from "react-google-recaptcha";
 import Statuslogo from "../Assets/statuslogo.svg";

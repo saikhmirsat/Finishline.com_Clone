@@ -1,0 +1,13 @@
+.admin-add-prod-parent-con {
+    border: 1px solid red;
+    display: flex;
+    width: 80%;
+    margin: auto;
+
+}
+
+.admin-add-prod-parent-con>div {
+    border: 1px solid green;
+    width: 100%;
+    padding: 20px;
+}
