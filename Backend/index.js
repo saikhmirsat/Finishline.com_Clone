@@ -2,7 +2,6 @@ const express = require("express")
 const { connection } = require("./config/db")
 const { userRouts } = require("./routes/User.route")
 const { productRoute } = require("./routes/Product.route")
-require('dotenv').config()
 var cors = require('cors')
 
 
@@ -30,7 +29,7 @@ app.get("/", (req, res) => {
 
 
 
-app.listen(process.env.port, async (req, res) => {
+app.listen(4000, async (req, res) => {
     try {
         await connection
         console.log("Connected to DB")
