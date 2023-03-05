@@ -37,5 +37,5 @@ app.listen(process.env.port, async (req, res) => {
     } catch (err) {
         console.log("Can't Connect to DB")
     }
-    console.log("Server Runing at port 4500")
+    console.log("Server Runing at port 4000")
 })
