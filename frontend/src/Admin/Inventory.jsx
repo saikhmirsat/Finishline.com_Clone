@@ -111,8 +111,8 @@ export default function Inventory() {
         {
           products && products.map((ele) => <div key={ele._id} className='admin-inventory-card'>
             <img src={ele.image1} alt="" />
-            <Heading size='md'>{ele.title}</Heading>
-            <Text>Brand: {ele.brand}</Text>
+            <Heading size='sm'>{ele.title}</Heading>
+            <Heading size='sm'> {ele.brand}</Heading>
             <Heading size='md' fontWeight="medium">Rs.{ele.price}</Heading>
             <div className='inventory-dtl-edit-btn'>
               <button onClick={() => ProductDelete(ele._id)}>Delete</button>

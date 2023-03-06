@@ -16,6 +16,7 @@ import {
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { BsOption } from 'react-icons/bs'
+import { fetchData } from '../components/Crud'
 
 export default function Users() {
     const [loading, setLoading] = useState(false)
@@ -43,25 +44,11 @@ export default function Users() {
     }, [])
 
     const getData = () => {
-        try {
-            setLoading(true)
-            fetch(`https://gray-dead-springbok.cyclic.app/users`, {
-                method: "GET",
-                headers: {
-                    "Content-type": "application/json"
-                }
-            }).then(res => res.json())
-                .then((res) => {
-
-                    setLoading(false)
-                    setData(res)
-                    getData()
-
-                })
-        } catch (err) {
-            console.log(err)
-            alert("Something Wrong")
-        }
+        fetchData("https://gray-dead-springbok.cyclic.app/users")
+            .then(res => {
+                setData(res)
+            })
+            .catch(error => console.error(error));
     }
 
 

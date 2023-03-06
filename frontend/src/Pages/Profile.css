@@ -67,3 +67,21 @@
 
 
 }
+
+.Profile-Admin-Btn-Mob {
+    display: none;
+}
+
+
+
+@media (max-width:667px) {
+    .Profile-Admin-Btn-Mob {
+        display: contents;
+    }
+
+    .profile-admin-btn {
+        background-color: #5271FF;
+        border-radius: 10px;
+        color: white;
+    }
+}

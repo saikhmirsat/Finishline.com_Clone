@@ -89,7 +89,7 @@ export default function AddProducts() {
 
     return (
         <div>
-            <Heading size='md'>AddProducts</Heading>
+            <Heading size='lg' m="10px">AddProducts</Heading>
             <div className="admin-add-prod-parent-con">
                 <div>
                     <Input placeholder='For Whom..' onChange={(e) => setFor_whom(e.target.value)} />
@@ -98,6 +98,14 @@ export default function AddProducts() {
                     <Input placeholder='Brand' onChange={(e) => setBrand(e.target.value)} />
                     <Input placeholder='Title' onChange={(e) => setTitle(e.target.value)} />
                     <Input placeholder='Price' type="number" onChange={(e) => setPrice(e.target.value)} />
+
+                    <Input placeholder='Product size Detail' onChange={(e) => setProduct_detail_size(e.target.value)} />
+                    <Input placeholder='Product features detail' onChange={(e) => setProduct_detail_features(e.target.value)} />
+                    <Input placeholder='Products Stock' type="number" onChange={(e) => setStock(e.target.value)} />
+                    <Input placeholder='Products Ratings' type="number" onChange={(e) => setRating(e.target.value)} />
+                </div>
+                <div>
+
                     <Input placeholder='Image 1 url' onChange={(e) => setImage1(e.target.value)} />
                     <Input placeholder='Image 2 url' onChange={(e) => setImage2(e.target.value)} />
                     <Input placeholder='Image 3 url' onChange={(e) => setImage3(e.target.value)} />
@@ -105,21 +113,11 @@ export default function AddProducts() {
                     <Input placeholder='Image 5 url' onChange={(e) => setImage5(e.target.value)} />
                     <Input placeholder='Image 6 url' onChange={(e) => setImage6(e.target.value)} />
                     <Input placeholder='Video url' onChange={(e) => setVideo(e.target.value)} />
-                </div>
-                <div>
-
                     <Input placeholder='Color ' onChange={(e) => setColor(e.target.value)} />
-                    {/* <Input placeholder='Color 2' onChange={(e) => (e.target.value)} />
-                    <Input placeholder='Color 3' onChange={(e) => (e.target.value)} /> */}
                     <Input placeholder='Now' onChange={(e) => setNow(e.target.value)} />
-                    <Input placeholder='Product size Detail' onChange={(e) => setProduct_detail_size(e.target.value)} />
-                    <Input placeholder='Product features detail' onChange={(e) => setProduct_detail_features(e.target.value)} />
-                    <Input placeholder='Products Stock' type="number" onChange={(e) => setStock(e.target.value)} />
-                    <Input placeholder='Products Ratings' type="number" onChange={(e) => setRating(e.target.value)} />
-
                     <Popover placement='top-start'>
                         <PopoverTrigger>
-                            <button className='sizeChat' >Size</button>
+                            <Button className='sizeChat' >Size</Button>
                         </PopoverTrigger>
                         <PopoverContent>
                             <PopoverHeader fontWeight='semibold'>Size Chart</PopoverHeader>
@@ -157,7 +155,7 @@ export default function AddProducts() {
 
                 </div>
             </div>
-            <Button onClick={ProductAddFunc}>Submit</Button>
+            <Button className='add-page-submit-btn' bg="#5271FF" onClick={ProductAddFunc}>Submit</Button>
         </div>
     )
 }

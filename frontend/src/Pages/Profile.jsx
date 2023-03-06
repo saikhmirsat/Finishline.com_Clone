@@ -13,17 +13,16 @@ import { LoginContext } from '../context/LoginDetail'
 
 export default function Profile() {
     const navigate = useNavigate()
-
     const { User } = useContext(LoginContext)
     console.log(User)
 
+    const admin = JSON.parse(localStorage.getItem("isAdmin"))
     const logoutFunc = () => {
         localStorage.setItem("isAuth", false)
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         localStorage.removeItem("isAuth")
 
-        const admin = JSON.parse(localStorage.getItem("isAdmin"))
         if (admin) {
             localStorage.removeItem("isAdmin")
         }
@@ -71,7 +70,8 @@ export default function Profile() {
                         <br />
                         <Text className="dob">Date of birth: {User.dob}</Text>
                         <Text>You've been with us since {User.registeryear}</Text>
-                        <Button><Link to='/profileupdate'>Edit Your Profile</Link></Button>
+                        {admin ? <button className='profile-admin-btn'><Link to='/admindashboard' className='Profile-Admin-Btn-Mob'>Admin Dashboard</Link> </button> : ""}
+                        <Button marginBottom='10px'><Link to='/profileupdate'>Edit Your Profile</Link></Button>
                         <br />
                     </GridItem>
                     {/* GRID ITEM 2 */}
