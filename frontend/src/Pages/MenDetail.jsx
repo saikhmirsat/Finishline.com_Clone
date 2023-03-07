@@ -40,6 +40,8 @@ export default function MenDetail() {
     // const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const [sizeactive, setsizeActive] = useState(false);
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+
     const cartvalue = useSelector((store) => store.cart.cart.length)
     console.log({ "cartvalue": cartvalue })
     //this function for chekbox
@@ -53,24 +55,48 @@ export default function MenDetail() {
 
     //================================================================
 
-    const handleClick = () => {
-        setsizeActive(!sizeactive);
-    };
+
 
     const { id } = useParams()
-    console.log(id)
+
 
     useEffect(() => {
-        axios.get(`https://mirsat-vercel-database.vercel.app/sportszonedata/${id}`)
-            .then((res) => setObj(res.data))
+        axios.get(`http://localhost:4000/products/${id}`)
+            .then((res) => setObj(res.data[0]))
     }, [id])
-    console.log(obj)
 
 
 
+
+    const user = JSON.parse(localStorage.getItem("user"))
+    let token = user.token
     const addToCartFunc = () => {
-        dispatch(addProduct(obj))
-        alert("Product Added Successfully in your Cart!")
+        let cartPayload = {
+            gender: obj.for_whome,
+            category: obj.category,
+            sub_category: obj.sub_category,
+            color: obj.color,
+            image: obj.image1,
+            title: obj.title,
+            price: obj.price,
+            quntity: 1,
+            brand: obj.brand
+        }
+
+
+        fetch(`http://localhost:4000/cart/add`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDA2ZjM1YjZjNDg5YWFkM2VmNTk0YjEiLCJpYXQiOjE2NzgxNzcxNDB9.pFhKmPEsdAXYNoDmonOUFfVhg7L5sq_DbYkeFqc7t7s'
+
+            },
+            body: JSON.stringify(cartPayload)
+        })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(err => console.log(err))
+
     }
 
     const checkAdminIsAuth = JSON.parse(localStorage.getItem("isAuthAdmin"))
@@ -79,7 +105,7 @@ export default function MenDetail() {
         <div>
             <div className='men-detail-main-con'>
                 <div className='men-detail-prod-box'>
-                    <ViewProduct img1={obj && obj.image1} img2={obj && obj.image2} img3={obj && obj.image4} img4={obj && obj.image5} img5={obj && obj.image6} />
+                    <ViewProduct img1={obj && obj.image1} img2={obj && obj.image2} img3={obj && obj.image3} img4={obj && obj.image4} img5={obj && obj.image5} />
                 </div>
                 <div className='men-detail-second-child'>
                     <div className='men-detail-rating-div'>
@@ -164,18 +190,11 @@ export default function MenDetail() {
                         </Modal>
                     </div>
                     <div className='men-detail-size-number'>
-                        <button onClick={handleClick} className={sizeactive ? "sizeactive" : "sizenotactive"}>M 7.5 / W 9.0</button>
-                        <button>M 8.0 / W 9.5</button>
-                        <button>M 8.5 / W 10.0</button>
-                        <button>M 9.0 / W 10.5</button>
-                        <button>M 9.5 / W 11.0</button>
-                        <button>M 10.0 / W 11.5</button>
-                        <button>M 10.5 / W 12.0</button>
-                        <button>M 11.0 / W 12.5</button>
-                        <button>M 11.5 / W 13.0</button>
-                        <button>M 12.0 / W 13.5</button>
-                        <button>M 13.0 / W 14.5</button>
-                        <button>M 14.0 / W 15.5</button>
+                        {
+                            obj.size && obj.size.map((ele) => <div>
+                                <button>{ele}</button>
+                            </div>)
+                        }
                     </div>
 
                     <hr style={{ marginTop: "40px", marginBottom: "30px" }} />

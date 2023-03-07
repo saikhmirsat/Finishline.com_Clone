@@ -22,11 +22,11 @@ module.exports = {
 }
 
 // {
-    // "firstname": "Saikh",
-    // "lastname": "Mirsat",
-    // "dob": "06/05/99",
-    // "email": "saikh@gmail.com",
-    // "password": "Misu@786"
-    // "registerfulldate":"21/04/1999",
-    // "registeryear":2012
+//     "firstname": "Saikh",
+//     "lastname": "Mirsat",
+//     "dob": "06/05/99",
+//     "email": "saikh@gmail.com",
+//     "password": "Misu@786"
+//     "registerfulldate":"21/04/1999",
+//     "registeryear":2012
 // }

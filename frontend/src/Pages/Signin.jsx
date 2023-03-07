@@ -46,11 +46,10 @@ export default function Signing() {
         .then((res) => {
           if (res.success) {
             localStorage.setItem("user", JSON.stringify(res))
+            localStorage.setItem("token", res.token)
             localStorage.setItem("isAuth", true)
             setIsAuth(true)
             setUser(res)
-
-
 
             if (res.role == "admin") {
               toast({

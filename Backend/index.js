@@ -2,7 +2,9 @@ const express = require("express")
 const { connection } = require("./config/db")
 const { userRouts } = require("./routes/User.route")
 const { productRoute } = require("./routes/Product.route")
+const { cartRoute } = require("./routes/Cart.route")
 var cors = require('cors')
+const { authenticate } = require("./middleware/Authenticate.middleware")
 
 
 
@@ -23,7 +25,8 @@ app.get("/", (req, res) => {
     res.send("This is Home")
     console.log("This is Home")
 })
-
+app.use(authenticate)
+app.use("/cart", cartRoute)
 
 
 

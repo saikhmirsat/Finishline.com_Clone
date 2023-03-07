@@ -80,7 +80,7 @@ userRouts.post("/login", async (req, res) => {
         if (user.length > 0) {
             bcrypt.compare(password, user[0].password, (err, result) => {
                 if (result) {
-                    const token = jwt.sign({ course: 'backend' }, 'masai')
+                    const token = jwt.sign({ userID: user[0]._id }, 'sportszone')
                     res.send({ "success": true, msg: "Login Sucessful", avatar: user[0].avatar, id: user[0]._id, role: user[0].role, token: token, firstname: user[0].firstname, lastname: user[0].lastname, email: user[0].email, dob: user[0].dob, registerfulldate: user[0].registerfulldate, registeryear: user[0].registeryear })
 
                 } else {

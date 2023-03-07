@@ -33,9 +33,9 @@ import {
 
 export default function NewArrival() {
   const [text, setText] = useState("")
-  console.log(text)
+
   const [data, setData] = useState([]);
-  // const [loading, setLoading] = useState(false)
+
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
@@ -43,7 +43,7 @@ export default function NewArrival() {
   const ShoeData = () => {
     axios
       .get(
-        `https://mirsat-vercel-database.vercel.app/sportszonedata?q=${text}`
+        `http://localhost:4000/products?q=${text}`
       )
       .then((res) =>
         setData(res.data)
@@ -54,7 +54,7 @@ export default function NewArrival() {
     ShoeData();
   }, [text]);
 
-  
+
 
   return (
     <div>
@@ -931,7 +931,7 @@ export default function NewArrival() {
         <div className="Grid-container">
           {data.map((item) => (
             <div className="items-in-grid" key={item.id}>
-              <Link to={`/men/${item.id}`}>
+              <Link to={`/men/${item._id}`}>
                 <img src={item.image1} alt="" />
 
 
@@ -943,7 +943,7 @@ export default function NewArrival() {
                 {/* <p>Size UK: {item.size[1]},{item.size[3]}</p> */}
                 <h5 className="item-price"> ${item.price}.00</h5>
                 <p className="quick-voiew-btn"><p>Quick View</p> <IoIosArrowForward /></p>
-                
+
               </Link>
             </div>
           ))}
