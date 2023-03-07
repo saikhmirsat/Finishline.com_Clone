@@ -61,7 +61,7 @@ export default function MenDetail() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/products/${id}`)
+        axios.get(`https://gray-dead-springbok.cyclic.app/products/${id}`)
             .then((res) => setObj(res.data[0]))
     }, [id])
 
@@ -84,11 +84,11 @@ export default function MenDetail() {
         }
 
 
-        fetch(`http://localhost:4000/cart/add`, {
+        fetch(`https://gray-dead-springbok.cyclic.app/cart/add`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
-                "Authorization": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NDA2ZjM1YjZjNDg5YWFkM2VmNTk0YjEiLCJpYXQiOjE2NzgxNzcxNDB9.pFhKmPEsdAXYNoDmonOUFfVhg7L5sq_DbYkeFqc7t7s'
+                "Authorization": localStorage.getItem('token')
 
             },
             body: JSON.stringify(cartPayload)

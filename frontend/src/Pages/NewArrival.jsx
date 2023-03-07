@@ -43,7 +43,7 @@ export default function NewArrival() {
   const ShoeData = () => {
     axios
       .get(
-        `http://localhost:4000/products?q=${text}`
+        `https://gray-dead-springbok.cyclic.app/products?q=${text}`
       )
       .then((res) =>
         setData(res.data)

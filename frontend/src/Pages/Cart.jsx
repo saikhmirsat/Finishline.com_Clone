@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeProducet } from "../Redux/action";
 import { checkOut } from '../Redux/action'
 import './Cart.css'
+import { useEffect } from "react";
+import axios from "axios";
 
 
 
@@ -12,62 +14,104 @@ import './Cart.css'
 
 export default function Cart() {
 
-    const cartvalue = useSelector((store) => store.cart.cart)
-    console.log({ "cartvalue": cartvalue })
+    const [cartData, setCartData] = useState([])
+    const [amount, setAmount] = useState(0)
 
-    const navigate = useNavigate()
-    // const cartArr = useSelector((stor) => stor.cart.cart)
+    useEffect(() => {
+        getData()
+    }, [])
 
-    const dispatch = useDispatch()
+    const getData = () => {
+        fetch(`https://gray-dead-springbok.cyclic.app/cart/usercart`, {
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": localStorage.getItem('token')
+            },
 
-    const [bagArr, setBagArr] = useState(cartvalue)
+        })
+            .then(res => res.json())
+            .then(res => {
+                setCartData(res)
+                let Total = totalCart(res)
+                setAmount(Total)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const Increment = (id, num) => {
+        const payload = {
+            quntity: num + 1
+        }
+        fetch(`https://gray-dead-springbok.cyclic.app/cart/update/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": localStorage.getItem('token')
+            },
+            body: JSON.stringify(payload)
+
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                getData()
+            })
+            .catch(err => console.log(err))
+
+    }
+    const Decrement = (id, num) => {
+        const payload = {
+            quntity: num - 1
+        }
+        fetch(`https://gray-dead-springbok.cyclic.app/cart/update/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": localStorage.getItem('token')
+            },
+            body: JSON.stringify(payload)
+
+        })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                getData()
+            })
+            .catch(err => console.log(err))
+
+    }
 
     const totalCart = (arr) => {
-        let sum = 0
-        for (let i = 0; i < arr.length; i++) {
-            sum += arr[i].price * arr[i].quantity
-        }
-        return sum
+        // let sum = 0
+        let total = arr.reduce((sum, ele) => {
+
+            return sum + ele.price * ele.quntity
+        }, 0)
+        return total
     }
 
-
-    const Increment = (id) => {
-        let ans = bagArr.map((ele, i) => {
-            if (i === id) {
-                ele.quantity++
-            }
-            return ele
-        })
-
-        setBagArr(ans)
-    }
-
-    const Decrement = (id) => {
-        let ans = bagArr.map((ele, i) => {
-            if (i === id && ele.quantity !== 0) {
-                ele.quantity--
-            }
-            return ele
-        })
-
-        setBagArr(ans)
-    }
     const RemoveProcuct = (id) => {
-        let ans = bagArr.filter((ele) => {
-            return ele.id !== id
+        fetch(`https://gray-dead-springbok.cyclic.app/cart/delete/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": localStorage.getItem('token')
+            },
+
         })
-        setBagArr(ans)
-        dispatch(removeProducet(id))
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                getData()
+            })
+            .catch(err => console.log(err))
     }
-
     const CheckOut = () => {
-        setBagArr([])
-        dispatch(checkOut())
-        localStorage.setItem('cartTotal', totalCart(bagArr))
-        navigate('/checkout')
-        alert("Please Complete Your Further Process!!")
 
     }
+
+
+
 
     return (
         <>
@@ -91,21 +135,21 @@ export default function Cart() {
                                     <th>Remove</th>
                                 </tr>
 
-                                {cartvalue.map((ele, i) => (
+                                {cartData.map((ele, i) => (
 
-                                    <tr className="table-tr">
+                                    <tr className="table-tr" key={ele._id}>
                                         <td>
-                                            <img className="item-img" alt="" src={ele.image1} />
+                                            <img className="item-img" alt="" src={ele.image} />
                                         </td>
                                         <td>{ele.title}</td>
-                                        <td>$ {ele.price}</td>
+                                        <td>$ {ele.price * ele.quntity}</td>
                                         <td className="cart-increasing-btn">
-                                            <button className="inc-button" onClick={() => Decrement(i)}>-</button>
-                                            <p>{ele.quantity}</p>
-                                            <button className="inc-button" onClick={() => Increment(i)}>+</button>
+                                            <button disabled={ele.quntity == 1} className="inc-button" onClick={() => Decrement(ele._id, ele.quntity)}>-</button>
+                                            <p>{ele.quntity}</p>
+                                            <button className="inc-button" onClick={() => Increment(ele._id, ele.quntity)}>+</button>
                                         </td>
                                         <td>
-                                            <button onClick={() => RemoveProcuct(ele.id)} className="delete-button">Delete</button>
+                                            <button onClick={() => RemoveProcuct(ele._id)} className="delete-button">Delete</button>
                                         </td>
                                     </tr>
                                 ))}
@@ -123,8 +167,8 @@ export default function Cart() {
 
                         <div className="Order-Summary-details">
                             <div className="Order-Summary-details-subdiv">
-                                <p>Subtotal :</p>
-                                <p> ${totalCart(bagArr)}</p>
+                                <p>Subtotal :{amount}</p>
+                                <p> ${amount}</p>
                             </div>
                             <div className="Order-Summary-details-subdiv">
                                 <p>TBD :</p>
@@ -137,7 +181,7 @@ export default function Cart() {
 
                             <div className="Order-Summary-details-subdiv">
                                 <p>Total :</p>
-                                <p> ${totalCart(bagArr)}</p>
+                                <p> ${amount}</p>
                             </div>
 
                             <div className="discription1">
