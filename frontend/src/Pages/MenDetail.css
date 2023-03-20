@@ -99,22 +99,32 @@
     grid-template-columns: repeat(4, 1fr);
 }
 
-.men-detail-size-number>button {
+.men-detail-size-number>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.men-detail-size-number>div>button {
+    width: 100%;
     font-size: 12px;
     border-radius: 5px;
     border: 1px solid rgb(192, 190, 190);
     padding: 5px;
 }
 
-.men-detail-size-number>button:hover {
-    background-color: grey;
+.sizeBTN {
+    background-color: #008fdb;
+    color: white;
+    font-weight: bold;
+}
+
+.men-detail-size-number>div>button:hover {
+    background-color: #008fdb;
     color: white;
 }
 
-.sizeactive {
-    background-color: gray;
-    color: white;
-}
+
 
 .men-detail-shipto-address {
     display: flex;
@@ -219,6 +229,9 @@
     /* border: 1px solid red; */
 
 }
+
+
+
 
 @media (max-width:1024px) {
     .men-detail-main-con {

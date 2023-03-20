@@ -141,7 +141,11 @@ export default function Cart() {
                                         <td>
                                             <img className="item-img" alt="" src={ele.image} />
                                         </td>
-                                        <td>{ele.title}</td>
+                                        <td>
+                                            <h5>{ele.title}</h5>
+                                            <p>Size: {ele.size}</p>
+                                        </td>
+
                                         <td>$ {ele.price * ele.quntity}</td>
                                         <td className="cart-increasing-btn">
                                             <button disabled={ele.quntity == 1} className="inc-button" onClick={() => Decrement(ele._id, ele.quntity)}>-</button>

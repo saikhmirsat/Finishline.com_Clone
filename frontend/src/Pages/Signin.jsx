@@ -74,19 +74,19 @@ export default function Signing() {
               })
               Navigate('/userprofile')
             }
+          } else {
+            toast({
+              position: 'top',
+              title: `Login Failed`,
+              description: 'Please try again!!!',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            })
           }
         })
         .catch((err) =>
-          toast({
-            position: 'top',
-            variant: 'top-accent',
-            title: 'Wrong Credential',
-            description: 'Something went wrong please try again',
-            status: 'error',
-            duration: 5000,
-            isClosable: true
-          })
-
+          console.log(err)
         )
     }
   }

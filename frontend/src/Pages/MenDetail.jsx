@@ -35,16 +35,14 @@ import {
 
 
 export default function MenDetail() {
+    // const [data, setData] = useState([])
     const dispatch = useDispatch()
     const [obj, setObj] = useState({})
-    // const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    const [sizeactive, setsizeActive] = useState(false);
-    const { isOpen, onOpen, onClose } = useDisclosure()
-
-
+    console.log(obj)
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [size, setSize] = useState("")
     const cartvalue = useSelector((store) => store.cart.cart.length)
     console.log({ "cartvalue": cartvalue })
-    //this function for chekbox
     const [selectedValue, setSelectedValue] = React.useState("first");
     const handleChange = React.useCallback(
         (e) => {
@@ -80,26 +78,31 @@ export default function MenDetail() {
             title: obj.title,
             price: obj.price,
             quntity: 1,
-            brand: obj.brand
+            brand: obj.brand,
+            size: size
         }
+        if (size == "") {
+            alert('Please select size')
+        } else {
+            fetch(`https://gray-dead-springbok.cyclic.app/cart/add`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": localStorage.getItem('token')
 
-
-        fetch(`https://gray-dead-springbok.cyclic.app/cart/add`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-                "Authorization": localStorage.getItem('token')
-
-            },
-            body: JSON.stringify(cartPayload)
-        })
-            .then(res => res.json())
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
-
+                },
+                body: JSON.stringify(cartPayload)
+            })
+                .then(res => res.json())
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
+        }
     }
 
+
+
     const checkAdminIsAuth = JSON.parse(localStorage.getItem("isAuthAdmin"))
+    console.log(size)
 
     return (
         <div>
@@ -182,7 +185,7 @@ export default function MenDetail() {
                                     {/* =========== */}
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                    <Button colorScheme='blue' mr={3} onClick={onClose} >
                                         Close
                                     </Button>
                                 </ModalFooter>
@@ -192,7 +195,7 @@ export default function MenDetail() {
                     <div className='men-detail-size-number'>
                         {
                             obj.size && obj.size.map((ele) => <div>
-                                <button>{ele}</button>
+                                <button onClick={() => setSize(ele)} className={size == ele ? 'sizeBTN' : ""} >{ele}</button>
                             </div>)
                         }
                     </div>
@@ -204,19 +207,21 @@ export default function MenDetail() {
                             checked={selectedValue === "first"}
                             label="First"
                             onChange={handleChange} />
-                        <h2>Ship to an address</h2>
+                        <h2>Store Pickup:</h2><span style={{ fontSize: '14px', textDecoration: 'underline' }}>Select Location </span><BiMap />
                     </div>
-                    <p className='men-det-freeship'>FREE SHIPPING</p>
-
+                    <p className='men-det-freeship'>FREE PICKUP</p>
                     <div className='men-detail-shipto-address'>
                         <input type="radio" name="group1"
                             value="first"
                             checked={selectedValue === "first"}
                             label="First"
                             onChange={handleChange} />
-                        <h2>Store Pickup:</h2><span style={{ fontSize: '14px', textDecoration: 'underline' }}>Select Location </span><BiMap />
+                        <h2>Ship to an address</h2>
                     </div>
-                    <p className='men-det-freeship'>FREE PICKUP</p>
+                    <p className='men-det-freeship'>FREE SHIPPING</p>
+
+
+
 
                     <button className='men-detail-add-to-cart' onClick={addToCartFunc}>ADD TO BAG</button>
                     <div className='men-detail-status-des'>
@@ -244,16 +249,14 @@ export default function MenDetail() {
                         <div><BsPlusLg /></div>
                     </summary>
                     <Text fontSize='md'>
+                        {
 
-                        <li>Silhouette inspired by the Air Jordan 4, 6, 11, 12, 13, 15, and 20</li>
-                        <li>Laser-etched leather, nubuck and synthetic upper</li>
-                        <li>Air-Unit cushioning for springy bounce and plenty of comfort</li>
-                        <li>Rubber outsole for durability and traction</li>
-                        <li>Mid-cut, lace-up construction</li>
-                        <li>Padded tongue and collar</li>
-                        <li>The Air Jordan Retro Dub Zero is imported.</li>
+                            <p>{obj.product_detail_features}</p>
 
-                        <Text>One of the most iconic hybrids of the Jordan Brand line, the Men's Air Jordan Retro Dub Zero Off-Court Shoes were originally released back in 2005. Now, it's back and better than ever, fracturing a commemorative insole.</Text>
+                        }
+                        {
+                            <p>* {obj.product_detail_size}</p>
+                        }
                     </Text>
                 </details>
                 <hr className='men-detail-des-summary-line' />
